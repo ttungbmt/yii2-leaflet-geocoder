@@ -1,0 +1,36 @@
+{
+    "name": "ttungbmt/yii2-leaflet-geocoder",
+    "description": "Leaflet Interactive Maps Extension Library for Yii2.",
+    "type": "yii2-extension",
+    "keywords": [
+        "2amigos",
+        "yii",
+        "yii2",
+        "extension",
+        "widget",
+        "maps",
+        "leaflet"
+    ],
+    "homepage": "http://yiiwheels.com/extension/leaflet-extension-library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Truong Thanh Tung",
+            "email": "ttungbmt@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "2amigos/yii2-leaflet-geocoder-plugin": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ttungbmt\\leaflet\\plugins\\geocoder\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

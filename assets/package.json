@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "leaflet-control-geocoder": "^1.8.2"
+  }
+}
