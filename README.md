@@ -51,15 +51,12 @@ There are four services that you can use, even though we have implemented only t
 
 Anybody will to help integrate more services, is very welcome :)
 
-
-
 ```
 use dosamigos\leaflet\layers\TileLayer;
 use ttungbmt\leaflet\Leaflet;
 use dosamigos\leaflet\types\LatLng;
-use ttungbmt\leaflet\ServiceNominatim;
-use ttungbmt\leaflet\GeoCoder;
-
+use ttungbmt\leaflet\geocoder\services\ServiceHCMGIS;
+use ttungbmt\leaflet\geocoder\GeoCoder;
 
 // lets use nominating service
 $hcmgis = new ServiceHCMGIS();
@@ -91,13 +88,11 @@ $marker = new Marker([
 
 // configure the tile layer
 $tileLayer = new TileLayer([
-    'urlTemplate' => 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg',
+    'urlTemplate' => 'http://{s}.google.com/vt/lyrs={map}&x={x}&y={y}&z={z}',
     'clientOptions' => [
-        'attribution' => 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' .
-            '<img src="http://developer.mapquest.com/content/osm/mq_logo.png">, ' .
-            'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' .
-            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-        'subdomains' => '1234'
+        'map' => 'm',
+        'attribution' => ''&copy; Google Maps',
+        'subdomains' => ['mt0', 'mt1', 'mt2', 'mt3'],
     ]
 ]);
 
