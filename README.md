@@ -44,6 +44,10 @@ There are four services that you can use, even though we have implemented only t
 - Nominatim
 - Bing
 - MapQuest
+- Google
+- HCMGIS
+- Mapbox
+- Here
 
 Anybody will to help integrate more services, is very welcome :)
 

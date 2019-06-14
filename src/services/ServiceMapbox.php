@@ -4,10 +4,11 @@
  * @link http://2amigos.us
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  */
-namespace ttungbmt\leaflet\plugins\geocoder;
+namespace ttungbmt\leaflet\plugins\geocoder\services;
 
-use dosamigos\leaflet\plugins\geocoder\BaseService;
+use ttungbmt\leaflet\plugins\geocoder\BaseService;
 use yii\base\InvalidConfigException;
+use yii\helpers\Json;
 use yii\web\JsExpression;
 
 /**
@@ -18,15 +19,29 @@ use yii\web\JsExpression;
  * @link http://www.2amigos.us/
  * @package dosamigos\leaflet\plugins\geocoder
  */
-class ServiceHCMGIS extends BaseService
-{
+class ServiceMapbox extends BaseService
+{/**
+ * @var string the Bing's API key
+ */
+    public $accessToken;
+
+    /**
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function init()
+    {
+        if($this->accessToken === null) {
+            throw new InvalidConfigException('"$key" cannot be empty.');
+        }
+    }
+
     /**
      * @inheritdoc
      * @codeCoverageIgnore
      */
     public function registerAssetBundle($view)
     {
-        ServiceHCMGISAsset::register($view);
+
     }
 
     /**
@@ -34,6 +49,7 @@ class ServiceHCMGIS extends BaseService
      */
     public function getJs()
     {
-        return new JsExpression("L.Control.Geocoder.hcmgis()");
+        $options = Json::encode($this->clientOptions);
+        return new JsExpression("L.Control.Geocoder.mapbox('{$this->accessToken}', {$options})");
     }
 }

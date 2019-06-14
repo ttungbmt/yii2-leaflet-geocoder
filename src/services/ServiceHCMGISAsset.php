@@ -4,7 +4,7 @@
  * @link http://2amigos.us
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  */
-namespace ttungbmt\leaflet\plugins\geocoder;
+namespace ttungbmt\leaflet\plugins\geocoder\services;
 
 use yii\web\AssetBundle;
 
@@ -35,7 +35,7 @@ class ServiceHCMGISAsset extends AssetBundle
     public function init()
     {
         parent::init();
-        $this->sourcePath = dirname(__DIR__) . '/assets';
+        $this->sourcePath = dirname(__DIR__, 2) . '/assets';
     }
 
     public $depends = [
