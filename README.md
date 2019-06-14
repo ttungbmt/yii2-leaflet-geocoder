@@ -26,12 +26,12 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-composer require 2amigos/yii2-leaflet-geocoder-plugin:~1.0
+composer require ttungbmt/yii2-leaflet-geocoder "@dev"
 ```
 or add
 
 ```json
-"2amigos/yii2-leaflet-geocoder-plugin" : "~1.0"
+"ttungbmt/yii2-leaflet-geocoder" : "@dev"
 ```
 
 to the require section of your application's `composer.json` file.
@@ -51,22 +51,25 @@ Anybody will to help integrate more services, is very welcome :)
 
 ```
 use dosamigos\leaflet\layers\TileLayer;
-use dosamigos\leaflet\LeafLet;
+use ttungbmt\leaflet\Leaflet;
 use dosamigos\leaflet\types\LatLng;
-use backend\extensions\leaflet\ServiceNominatim;
-use backend\extensions\leaflet\GeoCoder;
+use ttungbmt\leaflet\ServiceNominatim;
+use ttungbmt\leaflet\GeoCoder;
 
 
 // lets use nominating service
-$nominatim = new ServiceNominatim();
+$hcmgis = new ServiceHCMGIS();
 
 // create geocoder plugin and attach the service
 $geoCoderPlugin = new GeoCoder([
-    'service' => $nominatim,
+    'service' => $hcmgis,
     'clientOptions' => [
         // we could leave it to allocate a marker automatically
         // but I want to have some fun
-        'showMarker' => false
+        'defaultMarkGeocode' => false
+    ],
+    'clientEvents'  => [
+        'markgeocode' => new JsExpression('function(e){ console.log(e) }')
     ]
 ]);
 
@@ -95,28 +98,21 @@ $tileLayer = new TileLayer([
 ]);
 
 // initialize our leafLet component
-$leafLet = new LeafLet([
+$leaflet = new Leaflet([
     'name' => 'geoMap',
     'tileLayer' => $tileLayer,
     'center' => $center,
     'zoom' => 10,
-    'clientEvents' => [
-        // I added an event to ease the collection of new position
-        'geocoder_showresult' => 'function(e){
-            // set markers position
-            geoMarker.setLatLng(e.Result.center);
-        }'
-    ]
 ]);
 
 // add the marker
-$leafLet->addLayer($marker);
+$leaflet->addLayer($marker);
 
 // install the plugin
-$leafLet->installPlugin($geoCoderPlugin);
+$leaflet->installPlugin($geoCoderPlugin);
 
 // run the widget (you can also use dosamigos\leaflet\widgets\Map::widget([...]))
-echo $leafLet->widget();
+echo $leaflet->widget();
 
 ```
 
